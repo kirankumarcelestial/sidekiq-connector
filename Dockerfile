@@ -1,9 +1,9 @@
 FROM golang:1.9.2-alpine
-RUN mkdir -p /go/src/github.com/affix/sidekiq-connector
+RUN mkdir -p /go/src/github.com/kirankumarcelestial/sidekiq-connector
 RUN apk -U add curl git && \
     curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh && \
     apk del curl
-WORKDIR /go/src/github.com/affix/sidekiq-connector
+WORKDIR /go/src/github.com/kirankumarcelestial/sidekiq-connector
 
 COPY types      types
 COPY Gopkg.lock Gopkg.lock

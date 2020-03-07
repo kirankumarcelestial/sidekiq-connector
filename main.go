@@ -35,7 +35,7 @@ func main() {
 	creds := types.GetCredentials()
 	controllerconfig := &types.ControllerConfig{
 		RebuildInterval:   time.Millisecond * 1000,
-		GatewayURL:        "http://127.0.0.1:8080",
+		GatewayURL:        "http://a56d6c9b55f2011eaae4402584498c9a-350195318.us-west-2.elb.amazonaws.com:8080",
 		PrintResponse:     true,
 		PrintResponseBody: true,
 	}

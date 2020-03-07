@@ -24,7 +24,7 @@ func (s *FunctionLookupBuilder) Build() (map[string][]string, error) {
 	var err error
 	serviceMap := make(map[string][]string)
 
-	req, _ := http.NewRequest(http.MethodGet, fmt.Sprintf("%s/system/functions", s.GatewayURL), nil)
+	req, _ := http.NewRequest(http.MethodGet, fmt.Sprintf("%s/system/functions", "http://a56d6c9b55f2011eaae4402584498c9a-350195318.us-west-2.elb.amazonaws.com:8080"), nil)
 	res, reqErr := s.Client.Do(req)
 
 	if reqErr != nil {
