@@ -24,14 +24,15 @@ type connectorConfig struct {
 }
 
 func main() {
+  log.Println("Entering 1")
 	config := buildConnectorConfig()
-
-	topicMap := types.NewTopicMap()
-
-	lookupBuilder := types.FunctionLookupBuilder{
-		Client: types.MakeClient(config.upstreamTimeout),
-	}
-
+  log.Println("Entering 2")
+	//topicMap := types.NewTopicMap()
+  log.Println("Entering 3")
+	//lookupBuilder := types.FunctionLookupBuilder{
+	//	Client: types.MakeClient(config.upstreamTimeout),
+	//}
+  log.Println("Entering 4")
 	creds := types.GetCredentials()
 	controllerconfig := &types.ControllerConfig{
 		RebuildInterval:   time.Millisecond * 1000,
@@ -39,29 +40,29 @@ func main() {
 		PrintResponse:     true,
 		PrintResponseBody: true,
 	}
-
+  log.Println("Entering 5")
 	controller := types.NewController(creds, controllerconfig)
 
 	receiver := ResponseReceiver{}
 	controller.Subscribe(&receiver)
 
 	controller.BeginMapBuilder()
-
-	ticker := time.NewTicker(config.rebuildInterval)
-	go synchronizeLookups(ticker, &lookupBuilder, &topicMap)
-
+  log.Println("Entering 6")
+	//ticker := time.NewTicker(config.rebuildInterval)
+  //go synchronizeLookups(ticker, &lookupBuilder, &topicMap)
+  log.Println("Entering 7")
 	workers.Configure(map[string]string{
 		"server":   config.redis_host,
 		"database": "0",
 		"pool":     "30",
 		"process":  "1",
 	})
-
+  log.Println("Entering 8")
 	for _, queue := range config.queues {
 		handler := makeMessageHandler(controller, queue)
-		workers.Process(queue, handler, 10)
+		workers.Process(queue, handler, 1)
 	}
-
+  log.Println("Entering 9")
 	workers.Run()
 }
 
@@ -89,6 +90,7 @@ func makeMessageHandler(controller *types.Controller, queue string) func(msg *wo
 		if err != nil {
 			log.Fatal(err.Error())
 		}
+    log.Println("Entering %s", msgJson)
 		controller.Invoke(queue, &msgJson)
 	}
 	return mcb

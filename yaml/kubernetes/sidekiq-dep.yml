@@ -18,4 +18,8 @@ spec:
         image: artwishlist/sidekiq-alpine:latest
         ports:
         - containerPort: 80
+        env:
+          - name: REDIS_URL
+            value: "a2d26e6055fee11eabe2a0e49a1a7f5b-1221548443.us-west-2.elb.amazonaws.com:6379"
+
 ---

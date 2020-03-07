@@ -21,7 +21,7 @@ services:
     hostname: sidekiq-connector
     environment:
       gateway_url: http://gateway:8080
-      queues: "faas-request,"
+      queues: "faas-request"
       redis_host: redis:6379
       print_reponse: "true"
     networks:
