@@ -27,11 +27,11 @@ func main() {
   log.Println("Entering 1")
 	config := buildConnectorConfig()
   log.Println("Entering 2")
-	//topicMap := types.NewTopicMap()
+	topicMap := types.NewTopicMap()
   log.Println("Entering 3")
-	//lookupBuilder := types.FunctionLookupBuilder{
-	//	Client: types.MakeClient(config.upstreamTimeout),
-	//}
+	lookupBuilder := types.FunctionLookupBuilder{
+		Client: types.MakeClient(config.upstreamTimeout),
+	}
   log.Println("Entering 4")
 	creds := types.GetCredentials()
 	controllerconfig := &types.ControllerConfig{
@@ -48,8 +48,8 @@ func main() {
 
 	controller.BeginMapBuilder()
   log.Println("Entering 6")
-	//ticker := time.NewTicker(config.rebuildInterval)
-  //go synchronizeLookups(ticker, &lookupBuilder, &topicMap)
+	ticker := time.NewTicker(config.rebuildInterval)
+  go synchronizeLookups(ticker, &lookupBuilder, &topicMap)
   log.Println("Entering 7")
 	workers.Configure(map[string]string{
 		"server":   config.redis_host,
@@ -82,7 +82,7 @@ func synchronizeLookups(ticker *time.Ticker,
 	}
 }
 
-func makeMessageHandler(controller *types.Controller, queue string) func(msg *workers.Msg) {
+func makeMessageHandler(controller types.Controller, queue string) func(msg *workers.Msg) {
 
 	mcb := func(msg *workers.Msg) {
 		msgJson, err := json.Marshal(msg.Args)
