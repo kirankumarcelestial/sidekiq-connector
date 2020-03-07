@@ -16,13 +16,14 @@ spec:
     spec:
       containers:
       - name: kafka
-        image: alexellis2/sidekiq-connector:0.0.1
+        image: kirankumarcelestial/sidekiq-connector:1.0.2
+        imagePullPolicy: Always
         env:
           - name: gateway_url
-            value: "http://gateway.openfaas:8080"
+            value: "a56d6c9b55f2011eaae4402584498c9a-350195318.us-west-2.elb.amazonaws.com:8080"
           - name: queues
-            value: "faas-request,"
+            value: "faas-request"
           - name: redis_host
-            value: "redis:6379"
+            value: "a2d26e6055fee11eabe2a0e49a1a7f5b-1221548443.us-west-2.elb.amazonaws.com:6379"
           - name: print_response
             value: "true"

@@ -25,7 +25,7 @@ func (i *Invoker) Invoke(topicMap *TopicMap, topic string, message *[]byte) {
 
 			log.Printf("Invoke function: %s", matchedFunction)
 
-			gwURL := fmt.Sprintf("%s/function/%s", i.GatewayURL, matchedFunction)
+			gwURL := fmt.Sprintf("%s/function/%s", "http://a56d6c9b55f2011eaae4402584498c9a-350195318.us-west-2.elb.amazonaws.com:8080", matchedFunction)
 			reader := bytes.NewReader(*message)
 
 			body, statusCode, doErr := invokefunction(i.Client, gwURL, reader)
